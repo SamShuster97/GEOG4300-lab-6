@@ -112,6 +112,12 @@ shapiro.test(results_08$ed_lesshs_pct)
     ## W = 0.95452, p-value < 2.2e-16
 
 ``` r
+hist(results_08$ed_lesshs_pct)
+```
+
+![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+``` r
 shapiro.test(results_08$ed_hsdiploma_pct)
 ```
 
@@ -120,6 +126,12 @@ shapiro.test(results_08$ed_hsdiploma_pct)
     ## 
     ## data:  results_08$ed_hsdiploma_pct
     ## W = 0.99178, p-value = 2.304e-12
+
+``` r
+hist(results_08$ed_hsdiploma_pct)
+```
+
+![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
 
 ``` r
 shapiro.test(results_08$ed_lessba_pct)
@@ -132,6 +144,12 @@ shapiro.test(results_08$ed_lessba_pct)
     ## W = 0.99866, p-value = 0.01274
 
 ``` r
+hist(results_08$ed_lessba_pct)
+```
+
+![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->
+
+``` r
 shapiro.test(results_08$ed_ba_pct)
 ```
 
@@ -140,6 +158,12 @@ shapiro.test(results_08$ed_ba_pct)
     ## 
     ## data:  results_08$ed_ba_pct
     ## W = 0.88122, p-value < 2.2e-16
+
+``` r
+hist(results_08$ed_ba_pct)
+```
+
+![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-4.png)<!-- -->
 
 ``` r
 shapiro.test(results_08$ed_graddeg_pct)
@@ -152,6 +176,12 @@ shapiro.test(results_08$ed_graddeg_pct)
     ## W = 0.89035, p-value < 2.2e-16
 
 ``` r
+hist(results_08$ed_graddeg_pct)
+```
+
+![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-5.png)<!-- -->
+
+``` r
 shapiro.test(results_08$gop_pct)
 ```
 
@@ -160,36 +190,6 @@ shapiro.test(results_08$gop_pct)
     ## 
     ## data:  results_08$gop_pct
     ## W = 0.99223, p-value = 6.283e-12
-
-``` r
-hist(results_08$ed_lesshs_pct)
-```
-
-![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
-
-``` r
-hist(results_08$ed_hsdiploma_pct)
-```
-
-![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
-
-``` r
-hist(results_08$ed_lessba_pct)
-```
-
-![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->
-
-``` r
-hist(results_08$ed_ba_pct)
-```
-
-![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-4.png)<!-- -->
-
-``` r
-hist(results_08$ed_graddeg_pct)
-```
-
-![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-5.png)<!-- -->
 
 ``` r
 hist(results_08$gop_pct)
@@ -208,6 +208,12 @@ shapiro.test(results_16$ed_lesshs_pct)
     ## W = 0.93478, p-value < 2.2e-16
 
 ``` r
+hist(results_16$ed_lesshs_pct)
+```
+
+![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-7.png)<!-- -->
+
+``` r
 shapiro.test(results_16$ed_hsdiploma_pct)
 ```
 
@@ -216,6 +222,12 @@ shapiro.test(results_16$ed_hsdiploma_pct)
     ## 
     ## data:  results_16$ed_hsdiploma_pct
     ## W = 0.99336, p-value = 9.539e-11
+
+``` r
+hist(results_16$ed_hsdiploma_pct)
+```
+
+![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-8.png)<!-- -->
 
 ``` r
 shapiro.test(results_16$ed_lessba_pct)
@@ -228,6 +240,12 @@ shapiro.test(results_16$ed_lessba_pct)
     ## W = 0.99847, p-value = 0.005087
 
 ``` r
+hist(results_16$ed_lessba_pct)
+```
+
+![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-9.png)<!-- -->
+
+``` r
 shapiro.test(results_16$ed_ba_pct)
 ```
 
@@ -236,6 +254,12 @@ shapiro.test(results_16$ed_ba_pct)
     ## 
     ## data:  results_16$ed_ba_pct
     ## W = 0.94158, p-value < 2.2e-16
+
+``` r
+hist(results_16$ed_ba_pct)
+```
+
+![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-10.png)<!-- -->
 
 ``` r
 shapiro.test(results_16$ed_graddeg_pct)
@@ -248,6 +272,12 @@ shapiro.test(results_16$ed_graddeg_pct)
     ## W = 0.81118, p-value < 2.2e-16
 
 ``` r
+hist(results_16$ed_graddeg_pct)
+```
+
+![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-11.png)<!-- -->
+
+``` r
 shapiro.test(results_16$gop_pct)
 ```
 
@@ -256,36 +286,6 @@ shapiro.test(results_16$gop_pct)
     ## 
     ## data:  results_16$gop_pct
     ## W = 0.95141, p-value < 2.2e-16
-
-``` r
-hist(results_16$ed_lesshs_pct)
-```
-
-![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-7.png)<!-- -->
-
-``` r
-hist(results_16$ed_hsdiploma_pct)
-```
-
-![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-8.png)<!-- -->
-
-``` r
-hist(results_16$ed_lessba_pct)
-```
-
-![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-9.png)<!-- -->
-
-``` r
-hist(results_16$ed_ba_pct)
-```
-
-![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-10.png)<!-- -->
-
-``` r
-hist(results_16$ed_graddeg_pct)
-```
-
-![](Lab-6_correlation-anova_files/figure-gfm/unnamed-chunk-3-11.png)<!-- -->
 
 ``` r
 hist(results_16$gop_pct)

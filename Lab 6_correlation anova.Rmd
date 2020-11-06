@@ -61,31 +61,40 @@ head(results_16)
 
 ```{r}
 shapiro.test(results_08$ed_lesshs_pct)
-shapiro.test(results_08$ed_hsdiploma_pct)
-shapiro.test(results_08$ed_lessba_pct)
-shapiro.test(results_08$ed_ba_pct)
-shapiro.test(results_08$ed_graddeg_pct)
-shapiro.test(results_08$gop_pct)
-
 hist(results_08$ed_lesshs_pct)
+
+shapiro.test(results_08$ed_hsdiploma_pct)
 hist(results_08$ed_hsdiploma_pct)
+
+shapiro.test(results_08$ed_lessba_pct)
 hist(results_08$ed_lessba_pct)
+
+shapiro.test(results_08$ed_ba_pct)
 hist(results_08$ed_ba_pct)
+
+shapiro.test(results_08$ed_graddeg_pct)
 hist(results_08$ed_graddeg_pct)
+
+shapiro.test(results_08$gop_pct)
 hist(results_08$gop_pct)
 
-shapiro.test(results_16$ed_lesshs_pct)
-shapiro.test(results_16$ed_hsdiploma_pct)
-shapiro.test(results_16$ed_lessba_pct)
-shapiro.test(results_16$ed_ba_pct)
-shapiro.test(results_16$ed_graddeg_pct)
-shapiro.test(results_16$gop_pct)
 
+shapiro.test(results_16$ed_lesshs_pct)
 hist(results_16$ed_lesshs_pct)
+
+shapiro.test(results_16$ed_hsdiploma_pct)
 hist(results_16$ed_hsdiploma_pct)
+
+shapiro.test(results_16$ed_lessba_pct)
 hist(results_16$ed_lessba_pct)
+
+shapiro.test(results_16$ed_ba_pct)
 hist(results_16$ed_ba_pct)
+
+shapiro.test(results_16$ed_graddeg_pct)
 hist(results_16$ed_graddeg_pct)
+
+shapiro.test(results_16$gop_pct)
 hist(results_16$gop_pct)
 ```
 
