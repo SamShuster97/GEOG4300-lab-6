@@ -8,6 +8,11 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+#install.packages(c("Hmisc","broom","ggcorplot","corrgram"))
+library(Hmisc)
+library(ggcorrplot)
+library(corrgram)
+library(broom)
 ```
 
 ## Correlation and ANOVA
@@ -40,68 +45,139 @@ To start with, you will need to subset the data to two separate data frames, one
 **Question 1 (2 points)** _Create these two data frames using the year_txt variable and subset for just the region variable (Census region) as well as our variables of interest (GOP voting and educational attainment). Call the heads of both using kable when you are done._
 
 ```{r}
-#Code here
+results_08<-election_data%>%
+  filter(year_txt == "Y2008")%>%
+  select(region, ed_lesshs_pct, ed_hsdiploma_pct, ed_lessba_pct, ed_ba_pct, ed_graddeg_pct, gop_pct)
+head(results_08)
+
+results_16<-election_data%>%
+  filter(year_txt == "Y2016")%>%
+  select(region, ed_lesshs_pct, ed_hsdiploma_pct, ed_lessba_pct, ed_ba_pct, ed_graddeg_pct, gop_pct)
+head(results_16)
 ```
 
 
 **Question 2 (4 points)** _Next you should assess the normality of the variables of interest. Use a histogram and Shapiro-Wilk test to do so for the 2016 data. Based on your results, is a parametric or non-parametric test needed?_
 
 ```{r}
-#Code here
+shapiro.test(results_08$ed_lesshs_pct)
+shapiro.test(results_08$ed_hsdiploma_pct)
+shapiro.test(results_08$ed_lessba_pct)
+shapiro.test(results_08$ed_ba_pct)
+shapiro.test(results_08$ed_graddeg_pct)
+shapiro.test(results_08$gop_pct)
+
+hist(results_08$ed_lesshs_pct)
+hist(results_08$ed_hsdiploma_pct)
+hist(results_08$ed_lessba_pct)
+hist(results_08$ed_ba_pct)
+hist(results_08$ed_graddeg_pct)
+hist(results_08$gop_pct)
+
+shapiro.test(results_16$ed_lesshs_pct)
+shapiro.test(results_16$ed_hsdiploma_pct)
+shapiro.test(results_16$ed_lessba_pct)
+shapiro.test(results_16$ed_ba_pct)
+shapiro.test(results_16$ed_graddeg_pct)
+shapiro.test(results_16$gop_pct)
+
+hist(results_16$ed_lesshs_pct)
+hist(results_16$ed_hsdiploma_pct)
+hist(results_16$ed_lessba_pct)
+hist(results_16$ed_ba_pct)
+hist(results_16$ed_graddeg_pct)
+hist(results_16$gop_pct)
 ```
 
-{Your text response here}
+Based on the results above, I will be using a non-parametric test. The p-values for each shapiro-wilk test came back as less than 0.05 (significant). The corresponding histograms show that many of the distributions are relatively normal but to compensate for those that are not, I will use the Spearman test.
 
 
 **Question 3 (4 points)** _Now you can assess correlation in each year. Use the rcorr variable from the Hmisc package to analyze the correlation of our variables of interest in 2008 and 2016 using the Pearson or Spearman's test (depending on normality). Save the results of each function to an object and then call it in your code so it is visible in this knitted lab document._
 
 ```{r}
-#Code here
+cor_prep08<-results_08%>%
+  select(-region, gop_pct, ed_lesshs_pct:ed_graddeg_pct)
+election_cor08<-rcorr(as.matrix(cor_prep08), type="spearman")
+election_cor08
+
+cor_prep16<-results_16%>%
+  select(-region, gop_pct, ed_lesshs_pct:ed_graddeg_pct)
+election_cor16<-rcorr(as.matrix(cor_prep16), type="spearman")
+election_cor16
 ```
 
 **Question 4 (2 points)** _Look at the results of your correlation matrix for 2016. Evaluate the correlation between the GOP vote and the educational attainment variables, focusing on direction, magnitude and significance._
 
-{Your response here}
+There appears to be a statistically significant correlation between every level of education. However, the direction and magnitude of each relationship differs. There is a positive correlation between those with lower levels of education attainment and GOP voters (HS diploma or less). Conversely, there appears to be a negative correlation between those with high level of educational attainment and GOP voters (BA or higher).
 
 **Question 5 (2 points)** _Use the tidy function from broom to transform the results of the rcorr function in question 3 to a data frame format. Filter this to just include results showing correlation with the GOP vote in each county and add a new column that gives the year for each dataset. Then combine these two datasets using bind_rows or rbind. Call the head of the table when you are done._
 
 ```{r}
-#Code here
+library(knitr)
+cor_values08<-tidy(election_cor08) %>%
+  filter(column1=="gop_pct")%>%
+  mutate(year=2008)
+
+kable(head(cor_values08))
+
+cor_values16<-tidy(election_cor16)%>%
+  filter(column1=="gop_pct")%>%
+  mutate(year=2016)
+
+kable(head(cor_values16))
+
+cor_final<-bind_rows(cor_values08,cor_values16)
+kable(head(cor_final))
+
 ```
 
 **Question 6 (2 points)** _Create a ladder plot (similar to the one shown in the class code that shows the change in correlation coefficient between 2008 and 2016 for each subgroup in this analysis (e.g., those without a diploma, those with a diploma only)._
 
 ```{r}
-#Code here
+ggplot(cor_final, aes(x=year, y=estimate, group=column2, color=column2))+
+  geom_line()+
+  geom_point()
 ```
 
 **Question 7 (2 points)** _Interpret the graph you created in question 6. How did the associations between educational attainment and vote for the Republican candidate change between 2008 and 2016? Focus on the direction and magnitude of this change._
 
+It appears that the percentage of those who attained less than a bachelor's degree or less than a high school diploma decreased ever so slightly while the percentage of those who attained a high school diploma increase a significant amount. It would also appear that the percentage of people who pursued bachelor's degree or other higher-level degree decreased.
+
 ### Part 2: ANOVA
-In this section you'll calcluate the change in vote for the Republican candidate by county and then use ANOVA/post-hoc tests to determine if these changes differed across the four U.S. Census regions.
+In this section you'll calculate the change in vote for the Republican candidate by county and then use ANOVA/post-hoc tests to determine if these changes differed across the four U.S. Census regions.
 
 To start with, you'll need to calculate that change in vote.
 
-**Question 8 (2 points)** _Subset the initial dataset you loaded at the start of this lab so it includes just the region, year_txt, and gop_pct variables. Transform this data so the years are wide (individual columns) rather than long. Then calculate the change in Republican vote between 2008 and 2016. Call the head of your table when done._
+**Question 8 (2 points)** _Subset the initial dataset you loaded at the start of this lab so it includes just the region, year_txt, and gop_pct variables. Transform this data so the years are wide (individual columns) rather than long. Then calculate the change in percent of Republican vote between 2008 and 2016. Call the head of your table when done._
 
 ```{r}
-#Code here
+gop<-election_data%>%
+  select(region, year_txt, gop_pct, fips_code)%>%
+  pivot_wider(names_from = year_txt, values_from = gop_pct)%>%
+  mutate(avg_change = Y2016 - Y2008)
+
+kable(head(gop))
 ```
 
 **Question 9 (3 points)** _Create a boxplot that shows the distribution of the vote change variable you just created in question 6 by census region. Describe two notable trends shown by this graph._
 
 ```{r}
-#Code here
+ggplot(gop, aes(x=region, y=avg_change))+
+  geom_boxplot()
 ```
 
-{Text here}
+There appears to have been a notable change in voting sentiment in both the southern and western regions. This is made evident by the large number of outliers outside of the IQR of both plots. Midwestern voters appear to have been further polarized based on the number of outliers on either side of the plot. 
 
 **Question 10 (4 points)** _Let's assume the change variable is normally distributed. Do an ANOVA analysis of that variable across regions and call the results. Then run a TukeyHSD test on the output as a post-hoc test._
 
 ```{r}
-#Code here
+anova_test<-aov(gop$avg_change ~ gop$region, gop)
+summary(anova_test)
+TukeyHSD(anova_test)
 ```
 
-**Question 11 (3 points)** _Based on the analysis you did in question 10, was the change in Republican vote between 2008 and 2012 different between geographic regions? If so, which regions appear to be different from each other? Use the box plot you created in question 9 to describe the direction of difference as well as significance (e.g., which regions were higher or lower than others._
+**Question 11 (3 points)** _Based on the analysis you did in question 10, was the change in Republican vote between 2008 and 2016 different between geographic regions? If so, which regions appear to be different from each other? Use the box plot you created in question 9 to describe the direction of difference as well as significance (e.g., which regions were higher or lower than others._
 
-{Text here.}
+The percentage of Southern GOP voters increased and the percentage of Western GOP voters decreased. The only comparison made where the findings were NOT significant was between the southern and northeastern regions. The Northeast and Midwest differ in that midwestern voters tended to vote differently than they had previously while Northeastern voters appear to be more consistent with regards to which political party they voted for. The south and midwest are similar in that voter polarization worsened. The greatest level of difference is between the midwestern and western regions. Western voters were much more likely to vote for the democrat's candidate than for the republican's. The southern and northeastern regions had the smallest level of difference between eachother but the p-value is not significant.NOrtheastern voters appear to be more conservative than their counterparts in the west. I find it interesting that the greatest level of difference was not between the southern and western regions despite notable differences in public sentiment and the political leanings of the masses.
+
+According to the data, there appears to be a conclusive shift in voter sentiment from one election to the next. This finding makes sense given the state of society as of 11/6/2020. Americans are more divided than ever and the data proves it.
